@@ -1,0 +1,14 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!--home-->
+    <dimen name="dm_title">16sp</dimen>
+    <dimen name="dm_sub_title">14sp</dimen>
+    <dimen name="dm_small_txt">12sp</dimen>
+    <!--home-->
+
+    <!--confirm purchase-->
+    <dimen name="dm_btn_ht">60dp</dimen>
+    <!--confirm purchase-->
+    <!--prod detail-->
+</resources>

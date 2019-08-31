@@ -1,0 +1,11 @@
+<resources>
+    <!--home-->
+    <dimen name="dm_title">15sp</dimen>
+    <dimen name="dm_sub_title">13sp</dimen>
+    <dimen name="dm_small_txt">11sp</dimen>
+    <!--home-->
+
+    <!--confirm purchase-->
+    <dimen name="dm_btn_ht">60dp</dimen>
+    <!--confirm purchase-->
+</resources>
