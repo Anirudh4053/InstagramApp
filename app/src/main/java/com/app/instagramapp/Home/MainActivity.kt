@@ -26,6 +26,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.webkit.MimeTypeMap
 import android.widget.Toast
 import com.app.instagramapp.Comments.CommentPage
@@ -87,10 +88,22 @@ class MainActivity : AppCompatActivity() {
 
         val builder = StrictMode.VmPolicy.Builder()
         StrictMode.setVmPolicy(builder.build())
+
+
     }
     fun initDB() {
         items = (dbHandler as DatabaseHandler).post()
         println("items $items")
+        if(items.size==0){
+            errorImage.visibility = View.VISIBLE
+            errorImage.setOnClickListener {
+                println("Error image click")
+                checkPermission()
+            }
+        }
+        else{
+            errorImage.visibility = View.GONE
+        }
         adapter = PostAdapter(this,items, dbHandler!!,{
             println("productDetail: $it")
 
@@ -361,6 +374,7 @@ class MainActivity : AppCompatActivity() {
                         startActivityForResult(i,23)
                     } else {
                         if (data.getClipData() != null) {
+                            imagesEncodedList.clear()
                             val mClipData = data.getClipData()
                             val mArrayUri = ArrayList<Uri>()
                             for (i in 0 until mClipData.getItemCount()) {

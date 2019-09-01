@@ -60,6 +60,7 @@ class NewPostPage : AppCompatActivity(), ViewPager.OnPageChangeListener {
                 imagePath = extras.getString("imagePath","")
             }
             println("new post mTempFilePath $TYPE -- ${extras.getString("imagePath","")}")
+            imagePathUri.clear()
             var result: List<String> = imagePath.split(",").map { it.trim() }
             result.forEach {
                 imagePathUri.add(Uri.parse(it))

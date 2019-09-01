@@ -44,7 +44,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_image" android:layout_marginTop="8dp"/>
-    <ImageView
+    <!--<ImageView
             android:layout_width="0dp"
             android:layout_height="400dp"
             app:srcCompat="@drawable/ic_dummy"
@@ -54,11 +54,11 @@
             android:adjustViewBounds="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_image" android:layout_marginTop="8dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/profile_image" android:layout_marginTop="8dp"/>-->
 
 
 
-    <android.support.v4.view.ViewPager
+    <!--<android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="0dp"
             android:layout_height="400dp"
@@ -66,7 +66,7 @@
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_image" android:layout_marginTop="8dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/profile_image" android:layout_marginTop="8dp"/>-->
     <com.denzcoskun.imageslider.ImageSlider
             android:id="@+id/image_slider"
             android:layout_width="0dp"
@@ -76,7 +76,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_image"
             android:layout_marginTop="8dp"/>
-    <LinearLayout
+    <!--<LinearLayout
             android:id="@+id/layoutDots"
             android:layout_width="0dp"
             android:layout_height="30dp"
@@ -84,7 +84,7 @@
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="@+id/view_pager" app:layout_constraintEnd_toEndOf="@+id/view_pager"
-            app:layout_constraintStart_toStartOf="@+id/view_pager"/>
+            app:layout_constraintStart_toStartOf="@+id/view_pager"/>-->
     <tcking.github.com.giraffeplayer2.VideoView
             android:layout_width="0dp"
             android:layout_height="400dp"
@@ -99,7 +99,7 @@
             app:srcCompat="@drawable/ic_heart"
             android:id="@+id/likeImage"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/view_pager"
+            app:layout_constraintTop_toBottomOf="@+id/image_slider"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp"
             tools:ignore="VectorDrawableCompat"/>
@@ -174,7 +174,7 @@
                 android:text="nice pic"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/comment"
+                android:id="@+id/itemcomment"
                 android:textSize="@dimen/dm_sub_title"
                 app:layout_constraintTop_toTopOf="@+id/commentName"
                 app:layout_constraintStart_toEndOf="@+id/commentName"

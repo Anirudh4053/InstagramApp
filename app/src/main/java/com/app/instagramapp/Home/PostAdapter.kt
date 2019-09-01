@@ -11,16 +11,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.app.instagramapp.DB.DatabaseHandler
-import com.app.instagramapp.Other.SliderViewPager
 import com.app.instagramapp.Other.getUserName
 import com.app.instagramapp.R
 import com.app.instagramapp.model.Comment
 import com.app.instagramapp.model.Post
+import com.denzcoskun.imageslider.models.SlideModel
 import kotlinx.android.synthetic.main.ic_comment_layout.view.*
 import kotlinx.android.synthetic.main.ic_custom_item.view.*
-import kotlinx.android.synthetic.main.ic_custom_item.view.comment
-import com.app.instagramapp.Other.Slider
-import com.denzcoskun.imageslider.models.SlideModel
+import tcking.github.com.giraffeplayer2.GiraffePlayer
+import tcking.github.com.giraffeplayer2.PlayerListener
+import tv.danmaku.ijk.media.player.IjkTimedText
 
 
 class PostAdapter(private val mContext: Context, private val catList: List<Post>, private val dbHandler: DatabaseHandler,
@@ -87,7 +87,7 @@ class PostAdapter(private val mContext: Context, private val catList: List<Post>
         println("comm $comm")
         if(comm.id!=0){
             holder.itemView.singleCommentLayout.visibility = View.VISIBLE
-            holder.itemView.comment.text = comm.label
+            holder.itemView.itemcomment.text = comm.label
             holder.itemView.commentName.text = username
         }
 
@@ -96,9 +96,9 @@ class PostAdapter(private val mContext: Context, private val catList: List<Post>
             if(!commentTxt.isNullOrEmpty()){
                 onCommentSent(item)
                 holder.itemView.singleCommentLayout.visibility = View.VISIBLE
-                holder.itemView.comment.text = commentTxt
+                holder.itemView.itemcomment.text = commentTxt
                 holder.itemView.commentName.text = username
-                holder.itemView.includeComment.comment.text = ""
+                holder.itemView.includeComment.comment.setText("")
 
                 var success: Boolean = false
                 val comment: Comment = Comment()
@@ -138,14 +138,81 @@ class PostAdapter(private val mContext: Context, private val catList: List<Post>
 
         if(item.type==1){
             holder.itemView.videoView.visibility = View.VISIBLE
-            holder.itemView.mainImage.visibility = View.INVISIBLE
+            holder.itemView.image_slider.visibility = View.INVISIBLE
             holder.itemView.videoView
                 .setVideoPath(item.imagepath)
-                .setFingerprint(p1).player.start()
+                .setFingerprint(p1).setPlayerListener(object:PlayerListener{
+                    override fun onTimedText(giraffePlayer: GiraffePlayer?, text: IjkTimedText?) {
+                        println("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onPrepared(giraffePlayer: GiraffePlayer?) {
+                        println("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onRelease(giraffePlayer: GiraffePlayer?) {
+                        println("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onCompletion(giraffePlayer: GiraffePlayer?) {
+                        println("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onPause(giraffePlayer: GiraffePlayer?) {
+                        println("onPause") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onLazyLoadError(giraffePlayer: GiraffePlayer?, message: String?) {
+                        println("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onTargetStateChange(oldState: Int, newState: Int) {
+                        println("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onDisplayModelChange(oldModel: Int, newModel: Int) {
+                        println("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onSeekComplete(giraffePlayer: GiraffePlayer?) {
+                        println("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onInfo(giraffePlayer: GiraffePlayer?, what: Int, extra: Int): Boolean {
+                        println("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        return false
+                    }
+
+                    override fun onBufferingUpdate(giraffePlayer: GiraffePlayer?, percent: Int) {
+                        println("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onCurrentStateChange(oldState: Int, newState: Int) {
+                        println("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onLazyLoadProgress(giraffePlayer: GiraffePlayer?, progress: Int) {
+                        println("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onError(giraffePlayer: GiraffePlayer?, what: Int, extra: Int): Boolean {
+                        println("onError") //To change body of created functions use File | Settings | File Templates.
+                        return false
+                    }
+
+                    override fun onPreparing(giraffePlayer: GiraffePlayer?) {
+                        println("onPreparing") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onStart(giraffePlayer: GiraffePlayer?) {
+                        println("onStart") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                })
         }
         else{
             holder.itemView.videoView.visibility = View.GONE
-            holder.itemView.mainImage.visibility = View.VISIBLE
+            holder.itemView.image_slider.visibility = View.VISIBLE
             val imageList = ArrayList<SlideModel>()
             var result: List<String> = item.imagepath.split(",").map { it.trim() }
             imagePathUri.clear()
@@ -157,7 +224,7 @@ class PostAdapter(private val mContext: Context, private val catList: List<Post>
         }
 
     }
-    private fun addBottomDots(holder: PostAdapter.MyViewHolder,currentPage: Int) {
+    /*private fun addBottomDots(holder: PostAdapter.MyViewHolder,currentPage: Int) {
         println("slider ${Slider().initCode(imagePathUri.size)}")
         dots.clear()
         dots.addAll(Slider().initCode(imagePathUri.size))
@@ -194,7 +261,7 @@ class PostAdapter(private val mContext: Context, private val catList: List<Post>
 
         })
         holder.itemView.view_pager.offscreenPageLimit = imagePathUri.size
-    }
+    }*/
 
     override fun getItemCount(): Int {
         return catList.size
