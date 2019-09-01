@@ -3,15 +3,18 @@ package com.app.instagramapp.Other
 import android.Manifest
 import android.content.Context
 
-const val FRAGMENT_CAMERA_REQUEST = 99
+const val CAMERA_REQUEST = 99
 const val TEMP_FILES = "instatest"
 const val ERROR = "Error"
 const val FILE_PROVIDER_AUTHORITY = "com.app.instagramapp"
 const val REQUEST_PERMISSION_SETTING = 103
 const val PERMISSION_CALLBACK_CONSTANT = 102
+const val VIDEO_CAPTURE = 101
 const val CROP_REQUEST = 50
 const val GALLERY_REQUEST = 51
+const val PICK_IMAGE_MULTIPLE = 52
 const val PERMISSION_REQUIRED = Manifest.permission.CAMERA
+
 
 
 //companion object {
