@@ -13,6 +13,7 @@ import com.app.instagramapp.model.Comment
 import kotlinx.android.synthetic.main.activity_comment_page.*
 import kotlinx.android.synthetic.main.content_comment_page.*
 import kotlinx.android.synthetic.main.ic_comment_layout.view.*
+import java.io.File
 
 
 class CommentPage : AppCompatActivity() {
@@ -25,19 +26,14 @@ class CommentPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comment_page)
         setSupportActionBar(toolbar)
-
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         toolbar.setNavigationIcon(R.drawable.ic_back)
         toolbar.setNavigationOnClickListener { onBackPressed() }
-
-
         val extras:Bundle? = intent.extras
         if(extras!=null){
             postId = extras.getInt("postId",0)
             println("postId $postId")
         }
-
-
         dbHandler = DatabaseHandler(this)
 
         initDB()
@@ -47,7 +43,6 @@ class CommentPage : AppCompatActivity() {
         //add ItemDecoration
         recyclerView.addItemDecoration(VerticalSpaceItemDecoration(VERTICAL_ITEM_SPACE));
         recyclerView.adapter = adapter
-
         include.sentImage.setOnClickListener {
             val commentTxt = include.comment.text.toString()
             if(!commentTxt.isNullOrEmpty()){
@@ -66,9 +61,9 @@ class CommentPage : AppCompatActivity() {
 
             }
         }
-
     }
     fun initDB() {
+
         items = (dbHandler as DatabaseHandler).getCommentByPost(postId)
         println("items $items")
         adapter = CommentAdapter(this,items, dbHandler!!)

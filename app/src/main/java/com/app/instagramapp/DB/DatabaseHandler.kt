@@ -14,7 +14,7 @@ import javax.xml.datatype.DatatypeConstants.DATETIME
 class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DatabaseHandler.DB_NAME, null, DatabaseHandler.DB_VERSION) {
 
     override fun onCreate(db: SQLiteDatabase) {
-        val CREATE_TABLE = "CREATE TABLE $TABLE_NAME ($ID INTEGER PRIMARY KEY, $NAME TEXT,$DESC TEXT,$IMAGEPATH TEXT,$DATETIME DATETIME DEFAULT CURRENT_TIMESTAMP);"
+        val CREATE_TABLE = "CREATE TABLE $TABLE_NAME ($ID INTEGER PRIMARY KEY, $NAME TEXT,$DESC TEXT,$IMAGEPATH TEXT,$TYPE INTEGER,$DATETIME DATETIME DEFAULT CURRENT_TIMESTAMP);"
 
         val CREATE_TABLE_COM = "CREATE TABLE $TABLE_NAME_COMM ($ID INTEGER PRIMARY KEY, $LABEL TEXT,$POSTID INTEGER);"
         db.execSQL(CREATE_TABLE)
@@ -35,6 +35,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DatabaseHand
         values.put(NAME, post.name)
         values.put(DESC, post.desc)
         values.put(IMAGEPATH, post.imagepath)
+        values.put(TYPE, post.type)
         val _success = db.insert(TABLE_NAME, null, values)
         db.close()
         Log.v("InsertedId", "$_success")
@@ -62,6 +63,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DatabaseHand
         post.name = cursor.getString(cursor.getColumnIndex(NAME))
         post.desc = cursor.getString(cursor.getColumnIndex(DESC))
         post.imagepath = cursor.getString(cursor.getColumnIndex(IMAGEPATH))
+        post.type = cursor.getInt(cursor.getColumnIndex(TYPE))
         post.datetime = cursor.getString(cursor.getColumnIndex(DATETIME))
         cursor.close()
         return post
@@ -129,6 +131,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DatabaseHand
                     post.name = cursor.getString(cursor.getColumnIndex(NAME))
                     post.desc = cursor.getString(cursor.getColumnIndex(DESC))
                     post.imagepath = cursor.getString(cursor.getColumnIndex(IMAGEPATH))
+                    post.type = cursor.getInt(cursor.getColumnIndex(TYPE))
                     post.datetime = cursor.getString(cursor.getColumnIndex(DATETIME))
                     taskList.add(post)
                 } while (cursor.moveToNext())
@@ -145,6 +148,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DatabaseHand
         values.put(NAME, post.name)
         values.put(DESC, post.desc)
         values.put(IMAGEPATH, post.imagepath)
+        values.put(TYPE, post.type)
         val _success = db.update(TABLE_NAME, values, ID + "=?", arrayOf(post.id.toString())).toLong()
         db.close()
         return Integer.parseInt("$_success") != -1
@@ -153,6 +157,12 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DatabaseHand
     fun deletePost(_id: Int): Boolean {
         val db = this.writableDatabase
         val _success = db.delete(TABLE_NAME, ID + "=?", arrayOf(_id.toString())).toLong()
+        db.close()
+        return Integer.parseInt("$_success") != -1
+    }
+    fun deleteAllComments(_postId:Int): Boolean {
+        val db = this.writableDatabase
+        val _success = db.delete(TABLE_NAME_COMM, "$POSTID = $_postId", null).toLong()
         db.close()
         return Integer.parseInt("$_success") != -1
     }
@@ -172,6 +182,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DatabaseHand
         private val NAME = "Name"
         private val DESC = "Desc"
         private val IMAGEPATH = "Imagepath"
+        private val TYPE = "Type"
         private val DATETIME = "Timestamp"
 
         private val TABLE_NAME_COMM = "Comment"

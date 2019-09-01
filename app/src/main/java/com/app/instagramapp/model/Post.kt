@@ -5,6 +5,7 @@ data class Post(
     var name: String = "",
     var desc: String = "",
     var imagepath: String = "",
+    var type: Int = 0,
     var datetime: String = ""
 )
 

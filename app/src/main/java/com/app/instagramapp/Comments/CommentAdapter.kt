@@ -16,7 +16,6 @@ class CommentAdapter(private val mContext: Context, private val catList: List<Co
     RecyclerView.Adapter<CommentAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -31,8 +30,6 @@ class CommentAdapter(private val mContext: Context, private val catList: List<Co
         holder.itemView.username.text = username
         holder.itemView.username.visibility = View.GONE
         holder.itemView.comment.text = item.label
-
-
     }
 
     override fun getItemCount(): Int {
