@@ -65,6 +65,9 @@ class PostAdapter(private val mContext: Context, private val catList: List<Post>
         }
         holder.itemView.delete.setOnClickListener {
             onMenuClick(item)
+            if(item.type==1){
+                holder.itemView.videoView.player.stop()
+            }
         }
 
         val count = dbHandler.getCommentCount(item.id)
@@ -155,7 +158,7 @@ class PostAdapter(private val mContext: Context, private val catList: List<Post>
                     }
 
                     override fun onCompletion(giraffePlayer: GiraffePlayer?) {
-                        println("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        giraffePlayer?.stop()
                     }
 
                     override fun onPause(giraffePlayer: GiraffePlayer?) {
